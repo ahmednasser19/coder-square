@@ -1,6 +1,6 @@
 import express, { RequestHandler } from "express";
 import { db } from "./datastore";
-
+import { listPostHandler, createPostHandler } from "./handlers/postHandlers";
 const app = express();
 app.use(express.json());
 
@@ -11,15 +11,9 @@ const requestLoggerMiddleware: RequestHandler = (req, res, next) => {
 
 app.use(requestLoggerMiddleware);
 
-app.get("/posts", (req, res) => {
-  res.send({ posts: db.listPosts() });
-});
+app.get("/posts", listPostHandler);
 
-app.post("/posts", (req, res) => {
-  const post = req.body;
-  db.createPost(post);
-  res.sendStatus(200);
-});
+app.post("/posts", createPostHandler);
 
 app.listen(3000, () => {
   console.log("server is up and running on port 3000");
