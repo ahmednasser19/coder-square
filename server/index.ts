@@ -1,4 +1,4 @@
-import express, { RequestHandler } from "express";
+import express, { RequestHandler, ErrorRequestHandler } from "express";
 import { db } from "./datastore";
 import { listPostHandler, createPostHandler } from "./handlers/postHandlers";
 const app = express();
@@ -11,9 +11,15 @@ const requestLoggerMiddleware: RequestHandler = (req, res, next) => {
 
 app.use(requestLoggerMiddleware);
 
-app.get("/posts", listPostHandler);
+app.get("/v1/posts", listPostHandler);
+app.post("/v1/posts", createPostHandler);
 
-app.post("/posts", createPostHandler);
+const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+  console.log("Uncaught exception ", err);
+  return res.sendStatus(500).send("Internal server error");
+};
+
+app.use(errorHandler);
 
 app.listen(3000, () => {
   console.log("server is up and running on port 3000");
