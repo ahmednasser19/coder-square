@@ -18,6 +18,7 @@ export const createPostHandler: ExpressHandler<
   if (!req.body.title) {
     return res.status(400).send({ error: "title is required" });
   }
+
   if (!req.body.title || !req.body.url || !req.body.userId) {
     return res.sendStatus(400);
   }
