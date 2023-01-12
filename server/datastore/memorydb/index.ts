@@ -1,5 +1,5 @@
-import { User, Post, Like, Comment } from "../../types";
-import { DataStore } from "../index";
+import { Comment, Like, Post, User } from '../../types';
+import { DataStore } from '../index';
 
 export class InMemoryDataStore implements DataStore {
   private users: User[] = [];
@@ -12,11 +12,11 @@ export class InMemoryDataStore implements DataStore {
   }
 
   getUserByEmail(email: string): User | undefined {
-    return this.users.find((user) => user.email === email);
+    return this.users.find(user => user.email === email);
   }
 
   getUserByUsername(username: string): User | undefined {
-    return this.users.find((user) => user.username === username);
+    return this.users.find(user => user.username === username);
   }
 
   listPosts(): Post[] {
@@ -28,11 +28,11 @@ export class InMemoryDataStore implements DataStore {
   }
 
   getPost(id: string): Post | undefined {
-    return this.posts.find((post) => post.id === id);
+    return this.posts.find(post => post.id === id);
   }
 
   deletePost(id: string): void {
-    const index = this.posts.findIndex((post) => post.id === id);
+    const index = this.posts.findIndex(post => post.id === id);
     if (index === -1) {
       return;
     }
@@ -48,11 +48,11 @@ export class InMemoryDataStore implements DataStore {
   }
 
   listComment(postId: string): Comment[] {
-    return this.comments.filter((comment) => comment.postId === postId);
+    return this.comments.filter(comment => comment.postId === postId);
   }
 
   deleteComment(id: string): void {
-    const index = this.comments.findIndex((comment) => comment.id === id);
+    const index = this.comments.findIndex(comment => comment.id === id);
     if (index === -1) {
       return;
     }

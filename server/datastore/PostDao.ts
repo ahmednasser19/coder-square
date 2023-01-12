@@ -1,5 +1,5 @@
 //data access object
-import { Post } from "../types";
+import { Post } from '../types';
 
 export interface PostDao {
   listPosts(): Post[];
